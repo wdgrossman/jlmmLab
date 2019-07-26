@@ -19,21 +19,22 @@ contactList(1:maxContactListLength)=dummyContactStructure;
 gsPosEci=getGsPosEci(t,gs);
 
 
-contactListPointer=1;
+contactListPointer=0;
 numSatPos=length(t);
 satVisibility0=false;
 for k=1:numSatPos
     satVisibility1=satIsVisible(satPvEci(k,1:3)',gsPosEci(k,1:3)',minElevationAngle);
     courseAosState = ~satVisibility0 &&  satVisibility1;
-    courseLosState =  satVisibility0 && ~satVisibility1;
+    %courseLosState =  satVisibility0 && ~satVisibility1;
     
-    
-    
-    if ~satVisibility0 &&
-       contactList(i)=makeContactEntry(t(k)
+    if courseAosState
+        contactListPointer=contactListPointer+1;
+        [tFineAos,tFineLos]=getFineAosLos(k,t,satPvEci,gsPosEci,minElevationAngle);
+        contactList(contactListPointer) = makeContactEntry(tFineAos,tFineLos,tle(k),gs(k));
+    end
 end
     
-
+contactList=contactList(1:contactListPointer);
 
 
 
