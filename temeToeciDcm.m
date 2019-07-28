@@ -1,5 +1,5 @@
-function tm = temeToeciDcm(tUtc)
-%function tm = temeToeciDcm(tUtc)
+function tm = temeToeciDcm(tUtc,eox)
+%function tm = temeToeciDcm(tUtc,eox)
 %
 %
 %                           function teme2eci
@@ -35,8 +35,12 @@ function tm = temeToeciDcm(tUtc)
 % Walter Grossman
 % NASK
 % 12 July 2019
+if nargin<2
+  eox=initEox(tUtc);
+else
+    eox=refreshEox(eox,tUtc);
+end
 
-eox=initEox(tUtc);
 ddpsi=eox.eop(9);
 ddeps=eox.eop(10);
 j2000EpochJd=2451545.0;

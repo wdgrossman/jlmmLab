@@ -4,7 +4,7 @@ function contactList = getContactTimes(tleList,gsList)
 clProps = getContactListProperties;
 
 %Allocate Output
-contactList(1:maxContactListLength)=dummyContactStructure;
+contactList(1:clProps.maxContactListLength)=dummyContactStructure;
 
 numSat=length(tleList);
 numGs=length(gsList);
@@ -15,7 +15,7 @@ for j=1:numSat
        contactList1=getContactTimesKernal(tleList(j), gsList(k), clProps);
        n=length(contactList1);
        if n>0
-           contactListLength=contactListPointer+n;
+           contactListLength=contactListPointer+n-1;
            contactList(contactListPointer:contactListLength)=contactList1;
            contactListPointer=contactListLength+1;  %advance pointer
        end
