@@ -10,8 +10,11 @@ gs.name="BOSS, NEPTUNE";
 tle.line1='1 01158U 99999    19067.00000000  .00000000  00000-0  13629-3 0    00';
 tle.line2='2 01158  51.5777 325.9204 0011832 254.0855  82.4635 15.40925754    08';
 
-cl = getContactTimes(tle,gs);
+%getting contact times
+%cl = getContactTimes(tle,gs);
 
+%plotting
+plotPasses(tle,gs);
 end %function
 
 %% ==================================
