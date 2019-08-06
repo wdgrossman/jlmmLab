@@ -1,4 +1,4 @@
-function [t,satPvEci]=getPvEciFromTle(tle,clProps,resolution,t0,tf)
+function [t,satPvEcf]=getPvEcfFromTle(tle,clProps,resolution,t0,tf)
 %Get t0 for TLE epoch
 tTleEpoch = getTleTime(tle);
 
@@ -25,7 +25,7 @@ end %case
 
 t=(t0:dt:tf)';
 n=length(t);
-satPvEci=zeros(n,6);
+satPvEcf=zeros(n,6);
 
 typerun='c';
 typeinput='e';
@@ -42,8 +42,13 @@ for k=1:n
    v0teme=v0temeKmPerSec(:)*1000;
    eox=refreshEox(eox,t(k));
    tm = temeToeciDcm(t(k),eox);  %eox input not necessary but greatly speeds up calculation
-   satPvEci(k,1:3)=(tm*r0teme)';
-   satPvEci(k,4:6)=(tm*v0teme)';
+   tEcfToEci=eox.Q*eox.R*eox.W;
+   tEcfToEciDot=eox.Q*eox.Rdot*eox.W;
+   satPeci=(tm*r0teme);
+   satVeci=(tm*v0teme);
+   satPEcf1=tEcfToEci'*satPeci;
+   satVEcf1=tEcfToEci'*satVeci + tEcfToEciDot'*satPeci;
+   satPvEcf(k,:)=[satPEcf1' satVEcf1'];
 end
 
 

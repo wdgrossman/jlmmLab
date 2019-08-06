@@ -8,7 +8,7 @@ S.maxContactListLength=100;
 S.minUsefulContactDuration= 4*60;
 S.maxFutureProjectionTime = numDaysToPropagate * numSecInDay;
 S.maxContactListLengthPerSat=10;
-S.aosLosTimeResolution=1;
-
+S.aosLosFineResolution=0.5;
+S.aosLosCoarseResolution=S.minUsefulContactDuration;
 
 end

@@ -43,7 +43,7 @@ function [satLatDeg,satLonDeg] = blankRetrace(satLatDeg,satLonDeg)
 
 dLat=abs(diff(satLatDeg));
 dLon=abs(diff(satLonDeg));
-i=dLat>10 | dLon>10;
+i=dLat>60 | dLon>60;
 satLatDeg(i)=nan;
 satLonDeg(i)=nan;
 

@@ -9,18 +9,22 @@ contactList(1:clProps.maxContactListLength)=dummyContactStructure;
 numSat=length(tleList);
 numGs=length(gsList);
 
-contactListPointer=1;
+numContacts=0;
 for j=1:numSat
     for k=1:numGs
-       contactList1=getContactTimesKernal(tleList(j), gsList(k), clProps);
-       n=length(contactList1);
-       if n>0
-           contactListLength=contactListPointer+n-1;
-           contactList(contactListPointer:contactListLength)=contactList1;
-           contactListPointer=contactListLength+1;  %advance pointer
-       end
+        coarseContactList=makeCoarseContactList(tleList(j), gsList(k), clProps);
+        numCoarseContacts=length(coarseContactList);
+        if numCoarseContacts==0
+            continue
+        else 
+            fineContactList=makeFineContactList(coarseContactList,tleList(j), gsList(k), clProps);
+            contactListStartPointer=numContacts+1;
+            numContacts=numContacts+numCoarseContacts;
+            contactList(contactListStartPointer:numContacts)=fineContactList;
+        end
+        
     end
 end
-contactList=contactList(1:contactListLength);
+contactList=contactList(1:numContacts);
 
 end %function

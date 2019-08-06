@@ -16,5 +16,7 @@ contact.aos=NaT;
 contact.los=NaT;
 contact.gsName=missing;
 contact.satName=missing;
+contact.az=missing;
+contact.el=missing;
 
 end %function

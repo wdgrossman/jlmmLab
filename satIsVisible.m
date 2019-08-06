@@ -1,9 +1,10 @@
-function visibilityFlag=satIsVisible(satPosEci,gsPosEci,geodeticNormalEci,minElevationAngle)
+function [visibilityFlag,az,el]=satIsVisible(satPos,gsPos,geodeticNormal,minElevationAngle)
 %For now, ignor satellite height
-
-lineOfSight=satPosEci(:)-gsPosEci(:);
+az=0;  %TBD
+el=0;  %TBD
+lineOfSight=satPos(:)-gsPos(:);
 lineOfSightUnitVector=lineOfSight/norm(lineOfSight);
-visibilityFlag = lineOfSightUnitVector'*geodeticNormalEci>=sin(minElevationAngle);
+visibilityFlag = lineOfSightUnitVector'*geodeticNormal>=sin(minElevationAngle);
 
 
 end
