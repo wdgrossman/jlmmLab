@@ -1,5 +1,10 @@
-function contactList = getContactTimes(tleList,gsList)
-% function contactList = getContactTimes(tleList,gsList)
+function contactList = getContactTimes(tleList,gsList,t0)
+% function contactList = getContactTimes(tleList,gsList,t0)
+
+if nargin < 3
+    t0=[];
+end
+    
 
 clProps = getContactListProperties;
 
@@ -12,7 +17,7 @@ numGs=length(gsList);
 numContacts=0;
 for j=1:numSat
     for k=1:numGs
-        coarseContactList=makeCoarseContactList(tleList(j), gsList(k), clProps);
+        coarseContactList=makeCoarseContactList(tleList(j), gsList(k), clProps,t0);
         numCoarseContacts=length(coarseContactList);
         if numCoarseContacts==0
             continue
